@@ -5,6 +5,7 @@ import Link from "next/link";
 import { NavItem } from "@/components/nav-item";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
+import MobileNav from "@/components/mobile-nav";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,7 +28,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
+          <div className="lg:grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
             <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
               <div className="flex h-full max-h-screen flex-col gap-2">
                 <div className="flex h-[60px] items-center border-b px-5">
@@ -36,11 +37,12 @@ export default function RootLayout({
                     href="/"
                   >
                     {/* <Logo /> */}
-                    <span className="">ACME</span>
+                    <span className="">Drizzle Turso Nextjs</span>
                   </Link>
                 </div>
                 <div className="flex-1 overflow-auto py-2">
                   <nav className="grid items-start px-4 text-sm font-medium">
+                    <NavItem href="/">Home</NavItem>
                     <NavItem href="/users">Users</NavItem>
                     <NavItem href="/notes">Notes</NavItem>
                   </nav>
@@ -54,10 +56,12 @@ export default function RootLayout({
                   href="/"
                 >
                   {/* <Logo /> */}
-                  <span className="">ACME</span>
+                  <span className="">Drizzle Turso Nextjs</span>
                 </Link>
-                <ThemeToggle />
-                {/* <User /> */}
+                <div className="flex flex-row gap-2">
+                  <ThemeToggle />
+                  <MobileNav />
+                </div>
               </header>
               {children}
             </div>

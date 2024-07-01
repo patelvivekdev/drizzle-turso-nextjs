@@ -15,7 +15,7 @@ export default async function UsersPage({
   searchParams: { q: string; page: string; pageSize: string };
 }) {
   const search = searchParams.q ?? "";
-  const page = searchParams.page ?? 0;
+  const page = searchParams.page ?? 1;
   const pageSize = searchParams.pageSize ?? 5;
 
   const { users, hasNextPage, totalUsersCount } = await getUsers(search, Number(page), Number(pageSize));

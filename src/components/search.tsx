@@ -28,7 +28,7 @@ export function Search() {
   }, 300);
 
   return (
-    <div className="relative">
+    <div className="w-3/5 sm:w-4/5 relative">
       <SearchIcon className="absolute left-2.5 top-3 h-4 w-4 text-gray-500" />
       <Input
         onChange={(e) => {

@@ -60,7 +60,7 @@ export default function Pagination({
         </span>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="hidden lg:flex">
+            <Button variant="outline">
               <ListFilter className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>

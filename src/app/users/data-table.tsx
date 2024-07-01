@@ -76,7 +76,7 @@ export function DataTable<TData, TValue>({
         <Search />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="hidden lg:flex">
+            <Button variant="outline">
               <ListFilter className="mr-2 h-4 w-4" />
               View
             </Button>
@@ -108,7 +108,7 @@ export function DataTable<TData, TValue>({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="rounded-md border">
+      <div className="rounded-md border overflow-hidden">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

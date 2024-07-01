@@ -1,5 +1,5 @@
 import { db } from "./";
-import { asc, count, eq, getTableColumns, gt, sql } from "drizzle-orm";
+import { asc, count, eq, getTableColumns, sql } from "drizzle-orm";
 import { SelectUser, postsTable, InsertUser, usersTable } from "./schema";
 
 export async function createUser(data: InsertUser) {
@@ -8,6 +8,49 @@ export async function createUser(data: InsertUser) {
 
 export async function getAllUsers() {
   return db.select().from(usersTable);
+}
+
+export async function getUsers(
+  search: string | undefined,
+  page: number = 1,
+  pageSize: number = 10
+): Promise<{
+  users: SelectUser[];
+  totalUsersCount: number;
+  hasNextPage: boolean;
+}> {
+  const offset = (page - 1) * pageSize;
+
+  let query = db.select().from(usersTable).$dynamic();
+  if (search) {
+    query = query.where(
+      sql`lower(${usersTable.name}) like lower(${"%" + search + "%"})`
+    );
+  }
+
+  let countQuery = db
+    .select({ totalUsersCount: count() })
+    .from(usersTable)
+    .$dynamic();
+
+  if (search) {
+    countQuery = countQuery.where(
+      sql`lower(${usersTable.name}) LIKE ${sql.raw(
+        `'%${search.toLowerCase()}%'`
+      )}`
+    );
+  }
+
+  const [users, [{ totalUsersCount }]] = await Promise.all([
+    query.limit(pageSize).offset(offset),
+    countQuery,
+  ]);
+
+  return {
+    users,
+    totalUsersCount: Number(totalUsersCount),
+    hasNextPage: users.length === pageSize,
+  };
 }
 
 export async function getUserById(id: SelectUser["id"]): Promise<

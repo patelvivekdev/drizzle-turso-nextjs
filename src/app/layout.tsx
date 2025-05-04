@@ -3,9 +3,9 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Link from 'next/link'
 import { NavItem } from '@/components/nav-item'
-import { ThemeProvider } from '@/components/theme-provider'
 import { ThemeToggle } from '@/components/theme-toggle'
 import MobileNav from '@/components/mobile-nav'
+import { ThemeProvider } from 'next-themes'
 
 const inter = Inter({ subsets: ['latin'] })
 

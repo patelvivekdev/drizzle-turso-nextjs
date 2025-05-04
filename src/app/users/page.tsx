@@ -1,24 +1,24 @@
-import Pagination from "@/components/pagination";
-import { columns } from "./columns";
-import { DataTable } from "./data-table";
-import { getUsers } from "@/db/queries";
-import type { Metadata } from "next";
+import Pagination from '@/components/pagination'
+import { columns } from './columns'
+import { DataTable } from './data-table'
+import { getUsers } from '@/db/queries'
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: "Users",
-  description: "Manage users",
-};
+  title: 'Users',
+  description: 'Manage users',
+}
 
 export default async function UsersPage({
   searchParams,
 }: {
-  searchParams: { q: string; page: string; pageSize: string };
+  searchParams: Promise<{ q: string; page: string; pageSize: string }>
 }) {
-  const search = searchParams.q ?? "";
-  const page = searchParams.page ?? 1;
-  const pageSize = searchParams.pageSize ?? 5;
+  const search = (await searchParams).q ?? ''
+  const page = (await searchParams).page ?? 1
+  const pageSize = (await searchParams).pageSize ?? 5
 
-  const { users, hasNextPage, totalUsersCount } = await getUsers(search, Number(page), Number(pageSize));
+  const { users, hasNextPage, totalUsersCount } = await getUsers(search, Number(page), Number(pageSize))
 
   return (
     <main className="flex flex-1 flex-col p-4 md:p-6">
@@ -28,5 +28,5 @@ export default async function UsersPage({
       <DataTable columns={columns} data={users} />
       <Pagination hasNextPage={hasNextPage} pageSize={pageSize} currentPage={page} totalUsersCount={totalUsersCount} />
     </main>
-  );
+  )
 }

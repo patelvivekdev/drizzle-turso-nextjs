@@ -1,14 +1,8 @@
-import { getUserById } from "@/db/queries"
-import { unstable_noStore } from "next/cache"
+import { getUserById } from '@/db/queries'
 
-type Params = {
-    id: string
-}
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const team = (await params).id
 
-export async function GET(request: Request, context: { params: Params }) {
-    unstable_noStore()
-    const team = context.params.id
-
-    let data = await getUserById(parseInt(team))
-    return new Response(JSON.stringify(data))
+  let data = await getUserById(parseInt(team))
+  return new Response(JSON.stringify(data))
 }

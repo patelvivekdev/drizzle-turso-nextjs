@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -7,12 +7,16 @@ export default function Home() {
 
       <ul className="flex flex-col gap-4">
         <li>
-          <Link className="text-blue-500 hover:underline" href="/api/v1/users">Get all Users</Link>
+          <Link className="text-blue-500 hover:underline" href="/api/v1/users">
+            Get all Users
+          </Link>
         </li>
         <li>
-          <Link className="text-blue-500 hover:underline" href="/api/v1/users/1">Get User by Id 1</Link>
+          <Link className="text-blue-500 hover:underline" href="/api/v1/users/1">
+            Get User by Id 1
+          </Link>
         </li>
       </ul>
     </main>
-  );
+  )
 }

@@ -1,15 +1,15 @@
-"use client";
-import { useRouter } from "next/navigation";
-import { ListFilter } from "lucide-react";
+'use client'
+import { useRouter } from 'next/navigation'
+import { ListFilter } from 'lucide-react'
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu'
 
 export default function Pagination({
   hasNextPage,
@@ -17,36 +17,36 @@ export default function Pagination({
   currentPage,
   totalUsersCount,
 }: {
-  hasNextPage: boolean;
-  pageSize: string;
-  currentPage: string;
-  totalUsersCount: number;
+  hasNextPage: boolean
+  pageSize: string
+  currentPage: string
+  totalUsersCount: number
 }) {
-  let lastPage = Math.ceil(totalUsersCount / Number(pageSize));
+  let lastPage = Math.ceil(totalUsersCount / Number(pageSize))
 
-  const router = useRouter();
+  const router = useRouter()
 
   function onNextPage() {
-    if (!hasNextPage) return;
-    const offset = Number(currentPage) + 1;
+    if (!hasNextPage) return
+    const offset = Number(currentPage) + 1
     if (offset > lastPage) {
-      router.replace(`/users?limit=${pageSize}`);
-      return;
+      router.replace(`/users?limit=${pageSize}`)
+      return
     }
-    router.push(`/users?pageSize=${pageSize}&page=${offset}`);
+    router.push(`/users?pageSize=${pageSize}&page=${offset}`)
   }
   function onPreviousPage() {
-    const offset = Number(currentPage);
-    if (!offset) return;
-    const newOffset = offset - 1;
+    const offset = Number(currentPage)
+    if (!offset) return
+    const newOffset = offset - 1
     if (newOffset <= 1) {
-      router.replace(`/users?pageSize=${pageSize}`);
-      return;
+      router.replace(`/users?pageSize=${pageSize}`)
+      return
     }
-    router.push(`/users?pageSize=${pageSize}&offset=${currentPage}`);
+    router.push(`/users?pageSize=${pageSize}&offset=${currentPage}`)
   }
   function setPosition(pageSize: string) {
-    router.push(`/users?pageSize=${pageSize}`);
+    router.push(`/users?pageSize=${pageSize}`)
   }
 
   return (
@@ -65,11 +65,7 @@ export default function Pagination({
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuRadioGroup
-              value={pageSize}
-              defaultValue={pageSize}
-              onValueChange={setPosition}
-            >
+            <DropdownMenuRadioGroup value={pageSize} defaultValue={pageSize} onValueChange={setPosition}>
               <DropdownMenuRadioItem value="1">1</DropdownMenuRadioItem>
               <DropdownMenuRadioItem value="5">5</DropdownMenuRadioItem>
               <DropdownMenuRadioItem value="10">10</DropdownMenuRadioItem>
@@ -81,5 +77,5 @@ export default function Pagination({
         Next
       </Button>
     </div>
-  );
+  )
 }
